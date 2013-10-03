@@ -8,9 +8,9 @@ Convertir el programa de ejemplo usado en la practica anterior, para que muestre
 
 Instrucciones:
 
--Añadir el archivo "configure.rb" que contiene las credenciales de Twitter.
--Ejecutar el programa mediante el comando: $ rake
--En este momento el servidor arrancará.
--Abrimos un navegador y visitamos http://localhost:8080
+1] Añadir el archivo "configure.rb" que contiene las credenciales de Twitter.			
+2] Ejecutar el programa mediante el comando: $ rake										
+3] En este momento el servidor arrancará.											
+4] Abrimos un navegador y visitamos http://localhost:8080							
 
 Sergio Afonso García
