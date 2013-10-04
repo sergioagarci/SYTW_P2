@@ -1,38 +1,55 @@
-# encoding: utf-8
 require 'rack'
-require 'pry-debugger'
 require 'twitter'
-#require './configure'
+require './configure'
 
-class HelloWorld
+class Twittapp
 
   def call env
     req = Rack::Request.new(env)
     res = Rack::Response.new 
-    binding.pry if ARGV[0]
     res['Content-Type'] = 'text/html'
-    name = (req["firstname"] && req["firstname"] != '') ? req["firstname"] :'World'
+    username = (req["user"] && req["user"] != '') ? req["user"] :''
+    user_tweets = (!username.empty?) ? usuario_registrado?(username) : "¡Introduzca un nombre de usuario!"
     res.write <<-"EOS"
       <!DOCTYPE HTML>
       <html>
-        <title>Rack::Response</title>
+        <head>
+        <title> TwittApp </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        </head>
         <body>
-          <h1>
-             Hello #{name}!
-             <form action="/" method="post">
-               Your name: <input type="text" name="firstname" autofocus><br>
-               <input type="submit" value="Submit">
-             </form>
-          </h1>
+          <h1>TwittApp</h1>
+          <p>Práctica 2: Accediendo a Twitter y mostrando los últimos twitts en una página.</p>
+          <h4>Instrucciones:</h4>
+          <form action="/" method="post">
+            Introduzca un nombre de usuario registrado en Twitter para mostrar su último tweet: <input type="text" name="user" autofocus>
+            <br>
+            <input type="submit" value="Confirmar usuario">
+          </form>
+          <h4>Visualizar último tweet:</h4>
+          Usuario: #{username}
+          <br>
+          Último tweet del usuario: #{user_tweets}
+          <br>
+          <br>
+          <p id="copyright">&copy; Diego Williams Aguilar Montaño - Sistemas y Tecnologías Web 2013-14</p>
         </body>
       </html>
     EOS
     res.finish
   end
+
+  def usuario_registrado?(user)
+    begin
+      Twitter.user_timeline(user).first.text
+      rescue
+        "Error: ¡El usuario introducido no tiene una cuenta en Twitter!"
+    end
+  end
 end
 
 Rack::Server.start(
-  :app => HelloWorld.new,
+  :app => Twittapp.new,
   :Port => 8080,
   :server => 'thin'
 )
