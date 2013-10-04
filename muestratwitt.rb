@@ -1,4 +1,3 @@
-#encoding: utf-8
 require 'rack'
 require 'twitter'
 require './configure'
@@ -51,6 +50,6 @@ end
 
 Rack::Server.start(
   :app => Twittapp.new,
-  :Port => 9292,
+  :Port => 8080,
   :server => 'thin'
 )
