@@ -32,7 +32,7 @@ class Twittapp
           Último tweet del usuario: #{user_tweets}
           <br>
           <br>
-          <p id="copyright">&copy; Diego Williams Aguilar Montaño - Sistemas y Tecnologías Web 2013-14</p>
+          <p id="copyright">&copy; Sergio Afonso García - Sistemas y Tecnologías Web 2013-14</p>
         </body>
       </html>
     EOS
